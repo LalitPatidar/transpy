@@ -19,6 +19,7 @@ Bath gas = N2
 
 #############################################################################
 Optimized Lennard-Jones parameters based on He, Ne, Ar and N2 as bath gases:
+
 collision diameter (sigma) in angstrom:                      4.234
 well-depth (epsilon/kB) in Kelvin:                         750.798
 #############################################################################
