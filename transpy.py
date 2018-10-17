@@ -170,20 +170,11 @@ parser = argparse.ArgumentParser(description="Calculate Lennard-Jones parameters
                                  epilog = "Example: python transpy.py CH4.xyz Ne GM")
 
 parser.add_argument("Input_file",help="*.xyz file containing the coordinates of the molecule", type=str)
-#parser.add_argument("Bath_gas",help="Choose bath gas from [He, Ne, Ar, N2]", type=str)
-#parser.add_argument("Combining_rule",help="Choose combining rule: GM for geometric mean, HM for harmonic mean", type=str)
 
 args = parser.parse_args()
 
 species_xyz = args.Input_file
 species_name = species_xyz.split('.')[0]
-#bath_gas = args.Bath_gas
-#if bath_gas not in ['He','Ne','Ar','N2']:
-#    raise ValueError("Invalid bath gas (Please select a bath gas from He, Ne, Ar, N2)")
-
-#combining_rule = args.Combining_rule
-#if combining_rule not in ['GM','HM','SPM']:
-#    raise ValueError("Invalid combining rule (Please select a combining rule from GM (for geometric mean) or HM (for harmonic mean) or SPM (for sixth power mean))")
 
 coords = read_log(species_xyz)
 xcm,ycm,zcm = COM_calculator(coords)
@@ -228,7 +219,6 @@ for bath_gas in ['He','Ne','Ar','N2']:
     # Step:2 Generate N uniform directions around the molecule and obtain one dimentional PES in each direction #
     #-----------------------------------------------------------------------------------------------------------#
     directions = fibonacci_sphere(N)
-    #directions = [[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1],[1,1,1],[1,1,-1],[1,-1,1],[1,-1,-1],[-1,1,1],[-1,1,-1],[-1,-1,1],[-1,-1,-1]]
     PES_total = []
     lj = []
     for direction in directions:
@@ -400,6 +390,7 @@ with open('Lennard-Jones-parameters.txt','a') as File:
     File.writelines("\n")
     File.writelines("#############################################################################\n")
     File.writelines("Optimized Lennard-Jones parameters based on He, Ne, Ar and N2 as bath gases:\n")
+    File.writelines("\n")
     File.writelines("%-40s %25.3f\n" %('collision diameter (sigma) in angstrom: ',collision_dia))
     File.writelines("%-40s %25.3f\n" %('well-depth (epsilon/kB) in Kelvin: ',well_depth))
     File.writelines("#############################################################################")
